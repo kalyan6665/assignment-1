@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Structure to represent a non-zero element in sparse matrix
+struct Element {
+    int row;
+    int col;
+    int value;
+};
+
+// Function to convert a regular matrix to its sparse representation
+vector<Element> convertToSparse(int matrix[][5], int rows, int cols) {
+    vector<Element> sparseMatrix;
+
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (matrix[i][j] != 0) {
+                Element elem;
+                elem.row = i;
+                elem.col = j;
+                elem.value = matrix[i][j];
+                sparseMatrix.push_back(elem);
+            }
+        }
+    }
+    return sparseMatrix;
+}
+
+// Function to display the sparse matrix
+void displaySparseMatrix(const vector<Element>& sparseMatrix) {
+    cout << "Row Column Value\n";
+    for (const auto& elem : sparseMatrix) {
+        cout << elem.row << "     " << elem.col << "      " << elem.value << endl;
+    }
+}
+
+int main() {
+    // Original matrix
+    int matrix[4][5] = {
+        {0, 0, 3, 0, 4},
+        {0, 0, 5, 7, 0},
+        {0, 0, 0, 0, 0},
+        {0, 2, 6, 0, 0}
+    };
+
+    // Convert to sparse matrix
+    vector<Element> sparseMatrix = convertToSparse(matrix, 4, 5);
+
+    // Display sparse matrix
+    displaySparseMatrix(sparseMatrix);
+
+    return 0;
+}
